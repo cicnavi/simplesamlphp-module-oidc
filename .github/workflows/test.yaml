@@ -23,7 +23,7 @@ jobs:
         run: git clone --depth 1 --single-branch --branch $VERSION https://gitlab.com/openid/conformance-suite.git
       - name: Setup python
         uses: actions/setup-python@v4
-        run: pip install httpx
+      - run: pip install httpx
       - name: Conformance Suite Build
         working-directory: ./conformance-suite
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
