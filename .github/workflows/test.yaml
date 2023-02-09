@@ -21,6 +21,9 @@ jobs:
       - name: Conformance Suite Checkout
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
         run: git clone --depth 1 --single-branch --branch $VERSION https://gitlab.com/openid/conformance-suite.git
+      - name: Setup python
+        uses: actions/setup-python@v4
+        run: pip install httpx
       - name: Conformance Suite Build
         working-directory: ./conformance-suite
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
@@ -30,8 +33,6 @@ jobs:
           sed -i -e 's/localhost/localhost.emobix.co.uk/g' src/main/resources/application.properties
           sed -i -e 's/-B clean/-B -DskipTests=true/g' builder-compose.yml
           docker-compose -f builder-compose.yml run builder
-          pip install httpx
-          # test
 
   conformance-suite:
     runs-on: ubuntu-latest
