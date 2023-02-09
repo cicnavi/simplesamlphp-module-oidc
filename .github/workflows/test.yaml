@@ -31,6 +31,7 @@ jobs:
           sed -i -e 's/-B clean/-B -DskipTests=true/g' builder-compose.yml
           docker-compose -f builder-compose.yml run builder
           pip install httpx
+          # test
 
   conformance-suite:
     runs-on: ubuntu-latest
